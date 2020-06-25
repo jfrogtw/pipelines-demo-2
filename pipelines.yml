@@ -83,6 +83,7 @@ pipelines:
       - name: bld_svc
         type: DockerBuild
         configuration:
+          affinityGroup: DockerImageBuild
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: 146.148.104.158:8082/docker-local/gosvc
@@ -95,6 +96,7 @@ pipelines:
       - name: push_svc
         type: DockerPush
         configuration:
+          affinityGroup: DockerImageBuild        
           targetRepository: docker-local
           #forceXrayScan: true
           autoPublishBuildInfo: true
