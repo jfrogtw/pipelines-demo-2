@@ -2,8 +2,8 @@ resources:
   - name: gosvc_gitRepo
     type: GitRepo
     configuration:
-      path: sdemo/go-service
-      gitProvider: sdemo_github
+      path: jfrogtw/go-service
+      gitProvider: demo_github
 
   - name: gosvc_build_info
     type: BuildInfo
@@ -22,8 +22,8 @@ resources:
   - name: be_gitRepo
     type: GitRepo
     configuration:
-      path: sdemo/java-backend
-      gitProvider: sdemo_github
+      path: jfrogtw/java-backend
+      gitProvider: demo_github
 
   - name: appl_build_info_output
     type: BuildInfo
@@ -49,8 +49,8 @@ resources:
   - name: fe_gitRepo
     type: GitRepo
     configuration:
-      path: sdemo/vue-frontend
-      gitProvider: sdemo_github
+      path: jfrogtw/vue-frontend
+      gitProvider: demo_github
 
   - name: release_bundle
     type: ReleaseBundle
