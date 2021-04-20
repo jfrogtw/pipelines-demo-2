@@ -86,7 +86,7 @@ pipelines:
           affinityGroup: DockerImageBuild
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: 146.148.104.158:8082/docker-local/gosvc
+          dockerImageName: demo.jfrog-pipelines.com/kol-docker-local/gosvc
           dockerImageTag: ${run_number}
           inputResources:
             - name: gosvc_gitRepo
@@ -97,7 +97,7 @@ pipelines:
         type: DockerPush
         configuration:
           affinityGroup: DockerImageBuild        
-          targetRepository: docker-local
+          targetRepository: kol-docker-local
           #forceXrayScan: true
           autoPublishBuildInfo: true
           integrations:
@@ -197,7 +197,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            dockerImageName: 146.148.104.158:8082/docker-local/app
+            dockerImageName: demo.jfrog-pipelines.com/kol-docker-local/app
             dockerImageTag: ${run_number}
           inputResources:
             - name: be_gitRepo
@@ -217,7 +217,7 @@ pipelines:
             - add_run_variables ${step_name}_buildName=${pipeline_name}
             - docker build --pull --no-cache -t $dockerImageName:$dockerImageTag --build-arg REGISTRY=${int_demoArt_url} .
             - jfrog rt bce $pipeline_name $run_number
-            - jfrog rt docker-push 146.148.104.158:8082/docker-local/app:$run_number docker-local --build-name=$pipeline_name --build-number=$run_number
+            - jfrog rt docker-push demo.jfrog-pipelines.com/kol-docker-local/app:$run_number kol-docker-local --build-name=$pipeline_name --build-number=$run_number
             - add_run_files /tmp/jfrog/. jfrog
 
       - name: publish_app_build
