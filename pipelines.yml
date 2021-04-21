@@ -119,7 +119,7 @@ pipelines:
       - name: promote_svc_build
         type: PromoteBuild
         configuration:
-          targetRepository: demo-pipelines
+          targetRepository: kol-demo-pipelines
           integrations:
             - name: demoArt
           inputSteps:
@@ -232,7 +232,7 @@ pipelines:
       - name: promote_app_build
         type: PromoteBuild
         configuration:
-          targetRepository: demo-pipelines
+          targetRepository: kol-demo-pipelines
           integrations:
             - name: demoArt
           inputResources:
