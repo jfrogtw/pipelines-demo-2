@@ -160,7 +160,7 @@ pipelines:
         configuration:
           npmArgs: --no-progress --no-audit
           sourceLocation: .
-          repositoryName: npm-dev-virtual
+          repositoryName: kol-npm-dev-remote
           inputResources:
             - name: fe_gitRepo
           integrations:
@@ -184,7 +184,7 @@ pipelines:
       - name: publish_frontend
         type: NpmPublish
         configuration:
-          repositoryName: npm-libs-local
+          repositoryName: kol-npm-libs-local
           inputSteps:
             - name: pack_frontend
           integrations:
