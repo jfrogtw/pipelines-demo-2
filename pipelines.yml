@@ -52,30 +52,30 @@ resources:
       path: jfrogtw/vue-frontend
       gitProvider: demo_github
 
-  - name: release_bundle
-    type: ReleaseBundle
-    configuration:
-      sourceDistribution: demoDist
-      name: demo_rb
-      version: v1.0.0
-
-  - name: signed_bundle
-    type: ReleaseBundle
-    configuration:
-      sourceDistribution: demoDist
-      name: demo_rb
-      version: v1.0.0
-
-  - name: distribution_rules
-    type: DistributionRule
-    configuration:
-      sourceDistribution: demoDist
-      serviceName: "*"
-      siteName: "*"
-      cityName: "*"
-      countryCodes:
-        - "CN"
-        - "GB"
+#  - name: release_bundle
+#    type: ReleaseBundle
+#    configuration:
+#      sourceDistribution: demoDist
+#      name: demo_rb
+#      version: v1.0.0
+#
+#  - name: signed_bundle
+#    type: ReleaseBundle
+#    configuration:
+#      sourceDistribution: demoDist
+#      name: demo_rb
+#      version: v1.0.0
+#
+#  - name: distribution_rules
+#    type: DistributionRule
+#    configuration:
+#      sourceDistribution: demoDist
+#      serviceName: "*"
+#      siteName: "*"
+#      cityName: "*"
+#      countryCodes:
+#        - "CN"
+#        - "GB"
 
 pipelines:
   - name: demo_gosvc
@@ -240,43 +240,43 @@ pipelines:
           outputResources:
             - name: appl_promoted_build_info
 
-  - name: demo_release_mgmt
-    steps:
-      - name: bundle
-        type: CreateReleaseBundle
-        configuration:
-          releaseBundleName: demo_rb
-          releaseBundleVersion: v1.0.${run_number}
-          dryRun: false
-          sign: false
-          description: "some random test description"
-          inputResources:
-            - name: gosvc_promoted_build_info
-              trigger: false
-            - name: appl_promoted_build_info
-              trigger: false
-          outputResources:
-            - name: release_bundle
-          releaseNotes:
-            syntax: markdown
-            content: |
-              ## Heading
-                * Bullet
-                * Points
-
-      - name: sign
-        type: SignReleaseBundle
-        configuration:
-          inputResources:
-            - name: release_bundle
-          outputResources:
-            - name: signed_bundle
-
-      - name: distribute
-        type: DistributeReleaseBundle
-        configuration:
-          dryRun: false
-          inputResources:
-            - name: signed_bundle
-            - name: distribution_rules
+#  - name: demo_release_mgmt
+#    steps:
+#      - name: bundle
+#        type: CreateReleaseBundle
+#        configuration:
+#          releaseBundleName: demo_rb
+#          releaseBundleVersion: v1.0.${run_number}
+#          dryRun: false
+#          sign: false
+#          description: "some random test description"
+#          inputResources:
+#            - name: gosvc_promoted_build_info
+#              trigger: false
+#            - name: appl_promoted_build_info
+#              trigger: false
+#          outputResources:
+#            - name: release_bundle
+#          releaseNotes:
+#            syntax: markdown
+#            content: |
+#             ## Heading
+#                * Bullet
+#                * Points
+#
+#      - name: sign
+#        type: SignReleaseBundle
+#        configuration:
+#          inputResources:
+#            - name: release_bundle
+#          outputResources:
+#            - name: signed_bundle
+#
+#      - name: distribute
+#        type: DistributeReleaseBundle
+#        configuration:
+#          dryRun: false
+#          inputResources:
+#            - name: signed_bundle
+#            - name: distribution_rules
 
