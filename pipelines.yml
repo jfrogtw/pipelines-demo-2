@@ -86,7 +86,7 @@ pipelines:
           affinityGroup: DockerImageBuild
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: demo.jfrog-pipelines.com/kol-docker-local/gosvc
+          dockerImageName: giant.jfrog.io/docker-local/gosvc
           dockerImageTag: ${run_number}
           inputResources:
             - name: gosvc_gitRepo
@@ -97,7 +97,7 @@ pipelines:
         type: DockerPush
         configuration:
           affinityGroup: DockerImageBuild        
-          targetRepository: kol-docker-local
+          targetRepository: docker-local
           #forceXrayScan: true
           autoPublishBuildInfo: true
           integrations:
@@ -119,7 +119,7 @@ pipelines:
       - name: promote_svc_build
         type: PromoteBuild
         configuration:
-          targetRepository: kol-demo-pipelines
+          targetRepository: promoted-pipelines
           integrations:
             - name: demoArt
           inputSteps:
@@ -160,7 +160,7 @@ pipelines:
         configuration:
           npmArgs: --no-progress --no-audit
           sourceLocation: .
-          repositoryName: kol-npm-dev-remote
+          repositoryName: npm-dev-remote
           inputResources:
             - name: fe_gitRepo
           integrations:
@@ -184,7 +184,7 @@ pipelines:
       - name: publish_frontend
         type: NpmPublish
         configuration:
-          repositoryName: kol-npm-libs-local
+          repositoryName: npm-libs-local
           inputSteps:
             - name: pack_frontend
           integrations:
@@ -197,7 +197,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            dockerImageName: demo.jfrog-pipelines.com/kol-docker-local/app
+            dockerImageName: giant.jfrog.io/docker-local/app
             dockerImageTag: ${run_number}
           inputResources:
             - name: be_gitRepo
@@ -217,7 +217,7 @@ pipelines:
             - add_run_variables ${step_name}_buildName=${pipeline_name}
             - docker build --pull --no-cache -t $dockerImageName:$dockerImageTag --build-arg REGISTRY=${int_demoArt_url} .
             - jfrog rt bce $pipeline_name $run_number
-            - jfrog rt docker-push demo.jfrog-pipelines.com/kol-docker-local/app:$run_number kol-docker-local --build-name=$pipeline_name --build-number=$run_number
+            - jfrog rt docker-push giant.jfrog.io/docker-local/app:$run_number docker-local --build-name=$pipeline_name --build-number=$run_number
             - add_run_files /tmp/jfrog/. jfrog
 
       - name: publish_app_build
@@ -232,7 +232,7 @@ pipelines:
       - name: promote_app_build
         type: PromoteBuild
         configuration:
-          targetRepository: kol-demo-pipelines
+          targetRepository: promoted-pipelines
           integrations:
             - name: demoArt
           inputResources:
